@@ -2,6 +2,7 @@
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
+    [System.Serializable]
     public class DebugPrint : BaseStatement
     {
         public BaseNode Object;
