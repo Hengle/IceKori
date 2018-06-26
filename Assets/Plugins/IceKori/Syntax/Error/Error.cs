@@ -9,5 +9,11 @@ namespace Assets.Plugins.IceKori.Syntax.Error
 {
      public abstract class Error : BaseExpression
     {
+        internal Error()
+        {
+            Reducible = true;
+        }
+
+        public string Msg;
     }
 }

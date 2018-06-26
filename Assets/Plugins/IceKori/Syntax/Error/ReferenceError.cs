@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Assets.Plugins.IceKori.Syntax.Expression;
 
 namespace Assets.Plugins.IceKori.Syntax.Error
 {
-    public class TypeError : Error
+    public class ReferenceError : Error
     {
-        public TypeError()
+        public ReferenceError()
         {
 
         }
 
-        public TypeError(string msg)
+        public ReferenceError(string msg)
         {
             Msg = msg;
         }
