@@ -1,8 +1,7 @@
 ﻿using Assets.Plugins.IceKori.Syntax.BaseType;
+using Assets.Plugins.IceKori.Syntax.Error;
 using Assets.Plugins.IceKori.Syntax.Expression;
 using System.Collections.Generic;
-using Assets.Plugins.IceKori.Syntax.Error;
-using Sirenix.OdinInspector;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
