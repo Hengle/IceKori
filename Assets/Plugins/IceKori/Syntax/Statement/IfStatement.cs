@@ -2,6 +2,7 @@
 using Assets.Plugins.IceKori.Syntax.Expression;
 using System.Collections.Generic;
 using Assets.Plugins.IceKori.Syntax.Error;
+using Sirenix.OdinInspector;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
@@ -36,7 +37,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
                 }
                 return new SequenceStatment(context);
             }
-            return new Throw(new TypeError());
+            return new Throw(new TypeError($"Condition \"{Condition}\" not bool"));
         }
     }
 }
