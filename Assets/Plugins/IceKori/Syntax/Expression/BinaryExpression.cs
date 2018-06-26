@@ -344,23 +344,16 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
 
         public override BaseExpression Reduce(Enviroment env)
         {
-            while (Left.Reducible)
+            if (Left.GetType().IsSubclassOf(typeof(Error.Error)))
             {
-                Left = Left.Reduce(env);
-                if (Left.GetType().IsSubclassOf(typeof(Error.Error)))
-                {
-                    return Left;
-                }
+                return Left;
             }
-
-            while (Right.Reducible)
+            if (Left.GetType().IsSubclassOf(typeof(Error.Error)))
             {
-                Right = Right.Reduce(env);
-                if (Left.GetType().IsSubclassOf(typeof(Error.Error)))
-                {
-                    return Left;
-                }
+                return Left;
             }
+            if (Left.Reducible) return new BinaryExpression(Operator, Left.Reduce(env), Right);
+            if (Right.Reducible) return new BinaryExpression(Operator, Left, Right.Reduce(env));
             switch (Operator)
             {
                 case BinaryOperator.Add:
