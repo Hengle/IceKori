@@ -1,5 +1,4 @@
 ﻿using System;
-using Assets.Plugins.IceKori.Syntax.Expression;
 
 namespace Assets.Plugins.IceKori.Syntax.BaseType
 {
