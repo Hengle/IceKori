@@ -11,21 +11,28 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public Display()
         {
+            Reducible = true;
         }
 
         public Display(BaseExpression body)
         {
+            Reducible = true;
             Body = body;
         }
 
-        public override BaseStatement Reduce(Enviroment env)
+        public override string ToString()
+        {
+            return $"display({Body})";
+        }
+
+        public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
             if (Body.Reducible)
             {
-                return new Display(Body.Reduce(env));
+                return new object[]{ new Display(Body.Reduce(env)), env, errorHandling };
             }
-            Debug.Log(((IceKoriBaseType)Body).Unbox());
-            return new DoNothing();
+            Debug.Log(Body);
+            return new object[] { new DoNothing(), env, errorHandling };
         }
     }
 }

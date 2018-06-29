@@ -1,26 +1,31 @@
 ﻿using Assets.Plugins.IceKori.Syntax.Error;
-using UnityEngine;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
     [System.Serializable]
-    public class DebugPrint : BaseStatement
+    public class Throw : BaseStatement
     {
-        public BaseNode Object;
+        public BaseError Error;
 
-        public DebugPrint()
+        public Throw()
         {
-            Reducible = true;
+            Reducible = false;
+        }
+
+        public Throw(BaseError error)
+        {
+            Reducible = false;
+            Error = error;
         }
 
         public override string ToString()
         {
-            return $"print({Object})";
+            return $"throw({Error})";
         }
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            Debug.Log(Object);
+            errorHandling.ThrowError(Error);
             return new object[]{ new DoNothing(), env, errorHandling };
         }
     }

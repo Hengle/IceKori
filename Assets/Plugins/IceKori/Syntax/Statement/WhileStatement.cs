@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Assets.Plugins.IceKori.Syntax.Expression;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Plugins.IceKori.Syntax.Expression;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
@@ -15,30 +11,39 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public WhileStatement()
         {
-
+            Reducible = true;
         }
 
         public WhileStatement(BinaryExpression condition, List<BaseStatement> body)
         {
+            Reducible = true;
             Condition = condition;
             Body = body;
         }
 
-        public override BaseStatement Reduce(Enviroment env)
+        public override string ToString()
         {
-            if (Condition.Reducible)
+            var str = $"while({Condition}){{\n";
+            foreach (var baseStatement in Body)
             {
-                var expression = Condition.Reduce(env);
-                if (expression.GetType().IsSubclassOf(typeof(Error.Error)))
-                {
-                    return new Throw((Error.Error)expression);
-                }
-                return new WhileStatement((BinaryExpression)expression, Body);
+                str += $"{baseStatement}\n";
             }
-            else
+            return str + "}";
+        }
+
+        public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
+        {
+            Body.Add(this);
+            return new object[]
             {
-                return new SequenceStatment(new List<BaseStatement>(Body) { this });
-            }
+                new IfStatement(
+                    Condition,
+                    Body,
+                    new List<BaseStatement>{ new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop()) }
+                ),
+                env,
+                errorHandling
+            };
         }
     }
 }

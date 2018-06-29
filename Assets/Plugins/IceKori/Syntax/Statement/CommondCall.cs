@@ -11,17 +11,23 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public CommandCall()
         {
-
+            Reducible = true;
         }
 
         public CommandCall(string name)
         {
+            Reducible = true;
             Name = name;
         }
 
-        public override BaseStatement Reduce(Enviroment env)
+        public override string ToString()
         {
-            return new SequenceStatment(env.Commands[Name]);
+            return $"{Name}.call()";
+        }
+
+        public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
+        {
+            return new object[]{ new Sequence(env.Commands[Name]), env, errorHandling };
 
         }
     }

@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Plugins.IceKori.Syntax.Statement
+﻿namespace Assets.Plugins.IceKori.Syntax.Statement
 {
-    class DoNothing : BaseStatement
+    public class DoNothing : BaseStatement
     {
-        public new bool Reducible = false;
 
-        public override BaseStatement Reduce(Enviroment env)
+        public DoNothing()
         {
-            throw new NotImplementedException();
+            Reducible = false;
+        }
+
+        public override string ToString()
+        {
+            return $"DoNothing\n";
+        }
+
+        public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
+        {
+            return new object[]{};
         }
     }
 }
