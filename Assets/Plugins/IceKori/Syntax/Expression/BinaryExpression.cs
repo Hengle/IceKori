@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Error;
-using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Assets.Plugins.IceKori.Syntax.Expression
 {
@@ -37,10 +33,12 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         
         public BinaryExpression()
         {
+            Reducible = true;
         }
 
         public BinaryExpression(BinaryOperator op, BaseExpression left, BaseExpression right)
         {
+            Reducible = true;
             Operator = op;
             Left = left;
             Right = right;
@@ -84,7 +82,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
                 case BinaryOperator.Or:
                     return "||";
                 default:
-                    throw new Exception($"error operator,\"{Operator}\" not define.");
+                    throw new System.Exception($"error operator,\"{Operator}\" not define.");
             }
         }
 
@@ -195,7 +193,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
 
         private BaseExpression _Concat()
         {
-            return new IceKoriString($"{((IceKoriBaseType)Left).Unbox()}{((IceKoriBaseType)Right).Unbox()}");
+            return new IceKoriString($"{Left}{Right}");
         }
 
         private BaseExpression _Less()
@@ -344,11 +342,11 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
 
         public override BaseExpression Reduce(Enviroment env)
         {
-            if (Left.GetType().IsSubclassOf(typeof(Error.Error)))
+            if (Left.GetType().IsSubclassOf(typeof(BaseError)))
             {
                 return Left;
             }
-            if (Left.GetType().IsSubclassOf(typeof(Error.Error)))
+            if (Left.GetType().IsSubclassOf(typeof(BaseError)))
             {
                 return Left;
             }
@@ -385,7 +383,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
                 case BinaryOperator.Or:
                     return _Or();
                 default:
-                    throw new Exception($"error operator,\"{Operator}\" not define.");
+                    throw new System.Exception($"error operator,\"{Operator}\" not define.");
             }
         }
     }
