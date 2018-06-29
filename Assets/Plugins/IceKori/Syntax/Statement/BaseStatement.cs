@@ -10,10 +10,6 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
     [System.Serializable]
     public abstract class BaseStatement : BaseNode
     {
-        protected BaseStatement()
-        {
-            Reducible = true;
-        }
-        public abstract BaseStatement Reduce(Enviroment env);
+        public abstract object[] Reduce(Enviroment env, ErrorHandling errorHandling);
     }
 }
