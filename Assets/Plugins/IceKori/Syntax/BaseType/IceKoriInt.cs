@@ -6,19 +6,25 @@ namespace Assets.Plugins.IceKori.Syntax.BaseType
     public class IceKoriInt : IceKoriBaseType
     {
         public int Value;
-
         public IceKoriInt()
         {
+            Reducible = false;
         }
 
         public IceKoriInt(int value)
         {
-           Value = value;
+            Reducible = false;
+            Value = value;
         }
 
         public override object Unbox()
         {
             return Value;
+        }
+
+        public override string ToString()
+        {
+            return $"{Value}";
         }
 
         public bool ToBool()

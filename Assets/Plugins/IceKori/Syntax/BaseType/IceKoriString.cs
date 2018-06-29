@@ -6,14 +6,20 @@ namespace Assets.Plugins.IceKori.Syntax.BaseType
     public class IceKoriString : IceKoriBaseType
     {
         public string Value;
-
         public IceKoriString()
         {
+            Reducible = false;
         }
 
         public IceKoriString(string value)
         {
+            Reducible = false;
             Value = value;
+        }
+
+        public override string ToString()
+        {
+            return Value;
         }
 
         public override object Unbox()
