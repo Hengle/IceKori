@@ -1,27 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Plugins.IceKori.Syntax.Expression;
-
-namespace Assets.Plugins.IceKori.Syntax.Error
+﻿namespace Assets.Plugins.IceKori.Syntax.Error
 {
-    public class TypeError : Error
+    [System.Serializable]
+    public class TypeError : BaseError
     {
-        public TypeError()
+        public TypeError(string msg = "")
         {
-
-        }
-
-        public TypeError(string msg)
-        {
+            Reducible = false;
+            Name = "ReferenceError";
             Msg = msg;
-        }
-
-        public override BaseExpression Reduce(Enviroment env)
-        {
-            throw new NotImplementedException();
         }
     }
 }

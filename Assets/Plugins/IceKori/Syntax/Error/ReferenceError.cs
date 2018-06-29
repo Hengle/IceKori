@@ -1,23 +1,14 @@
-﻿using System;
-using Assets.Plugins.IceKori.Syntax.Expression;
-
-namespace Assets.Plugins.IceKori.Syntax.Error
+﻿namespace Assets.Plugins.IceKori.Syntax.Error
 {
-    public class ReferenceError : Error
+    [System.Serializable]
+    public class ReferenceError : BaseError
     {
-        public ReferenceError()
+        public ReferenceError(string msg = "")
         {
-
-        }
-
-        public ReferenceError(string msg)
-        {
+            Reducible = false;
+            Name = "ReferenceError";
             Msg = msg;
-        }
-
-        public override BaseExpression Reduce(Enviroment env)
-        {
-            throw new NotImplementedException();
         }
     }
 }
+    
