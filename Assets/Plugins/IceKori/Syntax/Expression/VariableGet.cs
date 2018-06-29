@@ -9,18 +9,23 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
 
         public VariableGet()
         {
-
+            Reducible = true;
         }
 
         public VariableGet(string name)
         {
+            Reducible = true;
             Name = name;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}";
         }
 
         public override BaseExpression Reduce(Enviroment env)
         {
-            if(!env.ContainsKey(Name)) return new ReferenceError($"{Name} is not defined");
-            return env[Name];
+            return env.FindVariable(Name);
         }
     }
 }

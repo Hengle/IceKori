@@ -9,18 +9,24 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
 
         public GlobalVariableGet()
         {
-
+            Reducible = true;
         }
 
         public GlobalVariableGet(string name)
         {
+            Reducible = true;
             Name = name;
+        }
+
+        public override string ToString()
+        {
+            return $"${Name}";
         }
 
         public override BaseExpression Reduce(Enviroment env)
         {
-            if (!env.ContainsKey(Name)) return new ReferenceError($"Global variable {Name} is not defined");
-            return env[Name];
+            if (!env.GlobalVariables.ContainsKey(Name)) return new ReferenceError($"Global variable {Name} is not defined");
+            return env.GlobalVariables[Name];
         }
     }
 }
