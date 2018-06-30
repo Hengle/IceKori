@@ -9,12 +9,12 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public Throw()
         {
-            Reducible = false;
+            Reducible = true;
         }
 
         public Throw(BaseError error)
         {
-            Reducible = false;
+            Reducible = true;
             Error = error;
         }
 
