@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Plugins.IceKori.Syntax.BaseType;
+using Assets.Plugins.IceKori.Syntax.EventCommand;
 using Assets.Plugins.IceKori.Syntax.Expression;
 using UnityEngine;
 using Assets.Plugins.IceKori.Syntax.Statement;
@@ -18,7 +19,6 @@ namespace Assets.Plugins.IceKori.Syntax
     {
         public InterpreterState State = InterpreterState.Pending;
         public bool IsDebug;
-        public bool IsCommandRunning;
         public BaseStatement Statement;
         public Enviroment Env;
         public ErrorHandling ErrorHandling;
@@ -35,25 +35,23 @@ namespace Assets.Plugins.IceKori.Syntax
 
         private void _Reduce()
         {
-            if (!IsCommandRunning)
+            if (IsDebug) Debug.Log(Statement.ToString());
+            if (Statement.Reducible)
             {
-                if (IsDebug) Debug.Log(Statement.ToString());
-                if (Statement.Reducible)
+                var reduceValue = Statement.Reduce(Env, ErrorHandling);
+                Statement = (BaseStatement)reduceValue[0];
+                Env = (Enviroment)reduceValue[1];
+                ErrorHandling = (ErrorHandling)reduceValue[2];
+                if (Statement.GetType().IsSubclassOf(typeof(EventCommandBase)) && ((EventCommandBase)Statement).IsFinsh == false)
                 {
-                    var reduceValue = Statement.Reduce(Env, ErrorHandling);
-                    Statement = (BaseStatement)reduceValue[0];
-                    Env = (Enviroment)reduceValue[1];
-                    ErrorHandling = (ErrorHandling)reduceValue[2];
-                }
-                else
-                {
-                    State = InterpreterState.End;
+                    State = InterpreterState.Stop;
                 }
             }
             else
             {
-                State = InterpreterState.Stop;
+                State = InterpreterState.End;
             }
+
         }
 
         public void Reduce()
@@ -68,6 +66,12 @@ namespace Assets.Plugins.IceKori.Syntax
                     _Reduce();
                     break;
                 case InterpreterState.Stop:
+                    if (Statement.GetType().IsSubclassOf(typeof(EventCommandBase)) && ((EventCommandBase)Statement).IsFinsh)
+                    {
+                        State = InterpreterState.Runnig;
+                        _Reduce();
+                    }
+                    break;
                 case InterpreterState.End:
                     return;
             }
