@@ -12,6 +12,7 @@ namespace Assets.Plugins.IceKori.Syntax
     public class IceKoriInterpreterComponent : SerializedMonoBehaviour
     {
         public bool IsRun;
+        public bool IsDebug;
         public Dictionary<string, BaseExpression> CommonVariables = new Dictionary<string, BaseExpression>();
         public Dictionary<string, List<BaseStatement>> CommonCommands = new Dictionary<string, List<BaseStatement>>();
         public List<BaseStatement> Commands = new List<BaseStatement>();
@@ -20,12 +21,15 @@ namespace Assets.Plugins.IceKori.Syntax
         void Start()
         {
             _interpreter = new Interpreter(CommonVariables, CommonCommands, new Dictionary<string, IceKoriBaseType>(), new Dictionary<string, List<BaseStatement>>(), Commands);
-            //_interpreter.IsDebug = true;
+            _interpreter.IsDebug = IsDebug;
         }
 
         void Update()
         {
-            _interpreter.Reduce();
+            if (IsRun)
+            {
+                _interpreter.Reduce();
+            } 
         }
     }
 }
