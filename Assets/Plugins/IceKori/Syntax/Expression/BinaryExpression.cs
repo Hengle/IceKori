@@ -357,7 +357,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
             {
                 return new TypeError();
             }
-                switch (Operator)
+            switch (Operator)
             {
                 case BinaryOperator.Add:
                     return _Add();
