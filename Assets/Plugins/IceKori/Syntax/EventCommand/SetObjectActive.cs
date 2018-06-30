@@ -56,6 +56,7 @@ namespace Assets.Plugins.IceKori.Syntax.EventCommand
                 }
                 else
                 {
+                    Object.SetActive(((IceKoriBool)Status).Value);
                     statement = new DoNothing();
                 }   
             }
