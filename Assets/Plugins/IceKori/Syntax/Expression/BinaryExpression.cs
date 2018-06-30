@@ -352,7 +352,12 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
             }
             if (Left.Reducible) return new BinaryExpression(Operator, Left.Reduce(env), Right);
             if (Right.Reducible) return new BinaryExpression(Operator, Left, Right.Reduce(env));
-            switch (Operator)
+            if (Left.GetType().IsSubclassOf(typeof(IceKoriObject)) ||
+                Right.GetType().IsSubclassOf(typeof(IceKoriObject)))
+            {
+                return new TypeError();
+            }
+                switch (Operator)
             {
                 case BinaryOperator.Add:
                     return _Add();
