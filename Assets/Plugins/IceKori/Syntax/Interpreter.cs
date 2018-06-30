@@ -36,16 +36,12 @@ namespace Assets.Plugins.IceKori.Syntax
         private void _Reduce()
         {
             if (IsDebug) Debug.Log(Statement.ToString());
-            if (Statement.Reducible)
+            if (Statement.GetType() != typeof(DoNothing))
             {
                 var reduceValue = Statement.Reduce(Env, ErrorHandling);
                 Statement = (BaseStatement)reduceValue[0];
                 Env = (Enviroment)reduceValue[1];
                 ErrorHandling = (ErrorHandling)reduceValue[2];
-                if (Statement.GetType().IsSubclassOf(typeof(EventCommandBase)) && ((EventCommandBase)Statement).IsFinsh == false)
-                {
-                    State = InterpreterState.Stop;
-                }
             }
             else
             {
@@ -66,12 +62,6 @@ namespace Assets.Plugins.IceKori.Syntax
                     _Reduce();
                     break;
                 case InterpreterState.Stop:
-                    if (Statement.GetType().IsSubclassOf(typeof(EventCommandBase)) && ((EventCommandBase)Statement).IsFinsh)
-                    {
-                        State = InterpreterState.Runnig;
-                        _Reduce();
-                    }
-                    break;
                 case InterpreterState.End:
                     return;
             }

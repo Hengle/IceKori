@@ -9,6 +9,5 @@ namespace Assets.Plugins.IceKori.Syntax.EventCommand
 {
     public abstract class EventCommandBase : BaseStatement
     {
-        public bool IsFinsh;
     }
 }

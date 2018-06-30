@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Plugins.IceKori.Syntax.BaseType;
+﻿using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Error;
 using Assets.Plugins.IceKori.Syntax.Expression;
 using Assets.Plugins.IceKori.Syntax.Statement;
@@ -11,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Plugins.IceKori.Syntax.EventCommand
 {
+    [System.Serializable]
     public class SetObjectActive : EventCommandBase
     {
         public GameObject Object;
@@ -18,12 +14,10 @@ namespace Assets.Plugins.IceKori.Syntax.EventCommand
 
         public SetObjectActive()
         {
-            IsFinsh = true;
         }
 
         public SetObjectActive(GameObject gameObject, BaseExpression status)
         {
-            IsFinsh = true;
             Object = gameObject;
             Status = status;
         }
