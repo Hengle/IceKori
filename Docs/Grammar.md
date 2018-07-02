@@ -81,23 +81,55 @@
     | <WhileStatement>
     | <Define>
     | <GlobalDefine>
-    | <CommandCall>
-    | <GlobalCommandCall>
     | <VariableUpdate>
     | <GlobalVariableUpdate>
+    | <CommandCall>
+    | <GlobalCommandCall>
     | <Display>
     | <DebugPrint>
     | <TryCatch>
     | <Throw>
     | <DoNothing>
 
-<IfStatement> ¡ú (<test> <consequence> <alternative>*)
-<test> ¡ú <Expresion>
+<IfStatement> ¡ú (<condition> <consequence> <alternative>*)
+<condition> ¡ú <Expresion>
 <consequence> ¡ú <Expresion>*
 <alternative> ¡ú <Expresion>*
 
-<ForStatement> ¡ú (#Count[int] )
+<ForStatement> ¡ú (#Count[int] <body>)
+<body> ¡ú <Statement>*
 
+<WhileStatement> ¡ú (<condition> <body>)
+
+<value> ¡ú <Expresion>
+
+<Define> ¡ú (#Name[string] <value>)
+
+<GobalDefine> ¡ú (#Name[string] <value>)
+
+<VariableUpdate> ¡ú (#Name[string] <value>)
+
+<GlobalVariableUpdate> ¡ú (#Name[string] <value>)
+
+<CommandCall> ¡ú (#Name[string])
+
+<GlobalCommandCall> ¡ú (#Name[string])
+
+<Display> ¡ú (<value>)
+
+<DebugPrint> ¡ú (<value>)
+
+<TryCatch> ¡ú (<body> @Catch <rescue>)
+
+@Catch {
+    TypeError,
+    ReferenceError,
+    All
+}
+
+<Throw> ¡ú (<Error>)
+
+<DoNothing> ¡ú ()
 ```
 
 ## Grammar
