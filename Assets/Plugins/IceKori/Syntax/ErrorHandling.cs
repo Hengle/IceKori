@@ -1,27 +1,53 @@
 ﻿using Assets.Plugins.IceKori.Syntax.Statement;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Plugins.IceKori.Syntax.Error;
+using UnityEngine;
 
 namespace Assets.Plugins.IceKori.Syntax
 {
     public class ErrorHandling
     {
-        public Stack<TryCatch> TryCatchStack;
-        public TryCatch TryCatch => TryCatchStack.Peek();
+        public int Pointer;
+        public List<TryCatch> TryCatchStack;
+        public TryCatch TryCatch => TryCatchStack.Last();
 
         public ErrorHandling()
         {
-            TryCatchStack = new Stack<TryCatch>();
+            TryCatchStack = new List<TryCatch>();
         }
 
-        public BaseStatement ThrowError(BaseError error)
+        public void Push(TryCatch tryCatch)
         {
-            if (TryCatch.Catch != ErrorType.All && error.Name != TryCatch.Catch.ToString())
+            TryCatchStack.Add(tryCatch);
+            Pointer = TryCatchStack.Count - 1;
+        }
+
+        public void Pop()
+        {
+            if (TryCatchStack.Count != 0) TryCatchStack.RemoveAt(Pointer);
+        }
+
+        public BaseStatement ThrowError(BaseError error, Enviroment env)
+        {
+            if (Pointer < 0)
             {
-                return new DoNothing();
+                Debug.LogWarning(error);
+                env.Interpreter.State = InterpreterState.End;
+                return new Exit();
             }
-            TryCatch.Rescue.Insert(0, new Define("$!", error));
-            return new Sequence(TryCatch.Rescue);
+            else
+            {
+                if (TryCatch.Catch != ErrorType.All && error.Name != TryCatch.Catch.ToString())
+                {
+                    Pointer -= 1;
+                    return ThrowError(error, env);
+                }
+
+                env.GlobalVariables["$!"] = error;
+
+                return new Sequence(TryCatch.Rescue);
+            }
         }
     }
 }

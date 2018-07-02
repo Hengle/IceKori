@@ -30,7 +30,7 @@ namespace Assets.Plugins.IceKori.Syntax
         {
             ErrorHandling = new ErrorHandling();
             Env = new Enviroment(this, commonVariables, commonCommands, globalVariables, globalCommands);
-            Statement = new Sequence(new List<BaseStatement>{ new TryCatch(commands, ErrorType.All, new List<BaseStatement>{new EvalCallback((enviroment, handling) => Debug.Log(new VariableGet("$!")))}) });
+            Statement = new Sequence(commands);
         }
 
         private void _Reduce()

@@ -47,7 +47,7 @@ namespace Assets.Plugins.IceKori.Syntax
                         value = value.Reduce(this);
                         if (value.GetType().IsSubclassOf(typeof(BaseError)))
                         {
-                            Interpreter.ErrorHandling.ThrowError((BaseError)value);
+                            Interpreter.ErrorHandling.ThrowError((BaseError)value, this);
                             return;
                         }
                     }

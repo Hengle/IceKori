@@ -1,4 +1,5 @@
 ﻿using Assets.Plugins.IceKori.Syntax.BaseType;
+using Assets.Plugins.IceKori.Syntax.Error;
 using UnityEngine;
 using Assets.Plugins.IceKori.Syntax.Expression;
 
@@ -27,12 +28,20 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
+            BaseStatement statement;
             if (Body.Reducible)
             {
-                return new object[]{ new Display(Body.Reduce(env)), env, errorHandling };
+                var reduceValue = Body.Reduce(env);
+                statement = reduceValue.GetType().IsSubclassOf(typeof(BaseError))
+                    ? errorHandling.ThrowError((BaseError)reduceValue, env)
+                    : new Display(reduceValue);
             }
-            Debug.Log(Body);
-            return new object[] { new DoNothing(), env, errorHandling };
+            else
+            {
+                Debug.Log(Body);
+                statement = new DoNothing();
+            }
+            return new object[] { statement, env, errorHandling };
         }
     }
 }

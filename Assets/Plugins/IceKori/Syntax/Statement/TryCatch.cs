@@ -49,8 +49,10 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            errorHandling.TryCatchStack.Push(this);
-            Body.Add(new EvalCallback((enviroment, handling) => handling.TryCatchStack.Pop()));
+            var callback = new EvalCallback((enviroment, handling) => handling.Pop());
+            Body.Add(callback);
+            Rescue.Add(callback);
+            errorHandling.Push(this);
             return new object[]{ new Sequence(Body), env, errorHandling};
         }
     }

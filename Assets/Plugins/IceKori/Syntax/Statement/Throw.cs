@@ -25,8 +25,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            errorHandling.ThrowError(Error);
-            return new object[]{ new DoNothing(), env, errorHandling };
+            return new object[]{ errorHandling.ThrowError(Error, env), env, errorHandling };
         }
     }
 }
