@@ -1,5 +1,4 @@
-﻿using Assets.Plugins.IceKori.Syntax.Error;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {

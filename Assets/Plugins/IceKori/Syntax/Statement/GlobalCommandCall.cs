@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Plugins.IceKori.Syntax.Expression;
-
-namespace Assets.Plugins.IceKori.Syntax.Statement
+﻿namespace Assets.Plugins.IceKori.Syntax.Statement
 {
     [System.Serializable]
     public class GlobalCommandCall : BaseStatement

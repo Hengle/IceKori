@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using Assets.Plugins.IceKori.Syntax.BaseType;
+﻿using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Error;
-using UnityEngine;
 
 namespace Assets.Plugins.IceKori.Syntax.Expression
 {
