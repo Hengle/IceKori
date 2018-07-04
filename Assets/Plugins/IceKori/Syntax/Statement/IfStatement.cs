@@ -43,22 +43,22 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-
-            if (Condition.Reducible) return new object[]{ new IfStatement(Condition.Reduce(env), Consequence, Alternative), env, errorHandling};
-            if (Condition.GetType() == typeof(IceKoriBool))
+            var statement = _IsError(Condition, () => new IfStatement(Condition.Reduce(env), Consequence, Alternative), () =>
             {
-                var context = (bool)((IceKoriBool)Condition).Unbox() ? Consequence : Alternative;
-                if (context.Count == 0)
+                if (Condition.GetType() == typeof(IceKoriBool))
                 {
-                    return new object[]{ new DoNothing(), env, errorHandling};
+                    var context = (bool)((IceKoriBool)Condition).Unbox() ? Consequence : Alternative;
+                    if (context.Count == 0)
+                    {
+                        return new DoNothing();
+                    }
+                    env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
+                    context.Add(new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop()));
+                    return new Sequence(context);
                 }
-                env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
-                context.Add(new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop()));
-                return new object[]{ new Sequence(context), env, errorHandling };
-            }
-
-            var error = Condition.GetType().IsSubclassOf(typeof(Error.BaseError)) ? (Error.BaseError)Condition : new TypeError($"Condition \"{Condition}\" not boolean");
-            return new object[]{ new Throw(error) , env, errorHandling};
+                return new Throw(new TypeError($"Condition \"{Condition}\" not boolean"));
+            });
+            return new object[]{ statement, env, errorHandling};
         }
     }
 }

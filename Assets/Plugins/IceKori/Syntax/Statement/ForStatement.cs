@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Plugins.IceKori.Syntax.BaseType;
-using Assets.Plugins.IceKori.Syntax.Error;
+﻿using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Expression;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
@@ -43,34 +38,19 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            if (Count.Reducible)
+            var statement = _IsError(Count,() => new ForStatement(Count.Reduce(env), Body), () =>
             {
-                BaseStatement statement;
-                var reduceValue = Count.Reduce(env);
-                if (reduceValue.GetType().IsSubclassOf(typeof(BaseError)))
+                if (Index == 0) env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
+                Index += 1;
+                return new IfStatement(
+                new BinaryExpression(BinaryOperator.LessEqual, new IceKoriInt(Index), Count),
+                new List<BaseStatement>(Body) {this},
+                new List<BaseStatement>
                 {
-                    statement = new Throw((BaseError)reduceValue);
-                }
-                else
-                {
-                    statement = new ForStatement(reduceValue, Body);
-                }
-                return new object[]{ statement, env, errorHandling };
-            }
-            if(Index == 0) env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
-            Index += 1;
-            var condition = new BinaryExpression(BinaryOperator.LessEqual, new IceKoriInt(Index), Count);
-            return new object[]{ new IfStatement(
-                    condition, 
-                    new List<BaseStatement>(Body) { this },
-                    new List<BaseStatement>
-                    {
-                        new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop())
-                    }
-                    ),
-                env,
-                errorHandling
-            };
+                    new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop())
+                });
+            });
+            return new object[] { statement, env, errorHandling };
         }
     }
 }

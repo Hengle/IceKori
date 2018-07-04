@@ -29,15 +29,14 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            if (Value.Reducible) return new object[] {new Define(Name, Value.Reduce(env)), env, errorHandling};
-            if (env.Variables.ContainsKey(Name)) return new object[]
+            var statement = _IsError(Value, () => new Define(Name, Value.Reduce(env)), () =>
             {
-                new Throw(new TypeError($"Identifier \"{Name}\" has already been declared")),
-                env,
-                errorHandling
-            };
-            env.Variables.Add(Name, (IceKoriBaseType)Value);
-            return new object[] { new DoNothing(), env, errorHandling };
+                if (env.Variables.ContainsKey(Name))
+                    return new Throw(new TypeError($"Identifier \"{Name}\" has already been declared"));
+                env.Variables.Add(Name, (IceKoriBaseType)Value);
+                return new DoNothing();
+            });
+            return new object[] { statement, env, errorHandling };
         }
     }
 }

@@ -29,13 +29,14 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            if (Value.Reducible) return new object[]{ new GlobalDefine(Name, Value.Reduce(env)), env, errorHandling };
-            if (env.GlobalVariables.ContainsKey(Name))
+            var statement = _IsError(Value, () => new GlobalDefine(Name, Value.Reduce(env)), () =>
             {
-                return new object[]{ new Throw(new TypeError($"Global identifier \"{Name}\" has already been declared")), env, errorHandling };
-            }
-            env.GlobalVariables.Add(Name, (IceKoriBaseType)Value);
-            return new object[] { new DoNothing(), env, errorHandling };
+                if (env.GlobalVariables.ContainsKey(Name))
+                    return new Throw(new TypeError($"Global identifier \"{Name}\" has already been declared"));
+                env.GlobalVariables.Add(Name, (IceKoriBaseType)Value);
+                return new DoNothing();
+            });
+            return new object[] { statement, env, errorHandling };
         }
     }
 }

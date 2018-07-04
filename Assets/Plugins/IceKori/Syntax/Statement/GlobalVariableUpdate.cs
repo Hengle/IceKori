@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Plugins.IceKori.Syntax.BaseType;
+﻿using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Error;
 using Assets.Plugins.IceKori.Syntax.Expression;
 
@@ -31,15 +29,14 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            if (Value.Reducible) return new object[] { new GlobalVariableUpdate(Name, Value.Reduce(env)), env, errorHandling };
-            if (!env.GlobalVariables.ContainsKey(Name)) return new object[]
+            var statement = _IsError(Value, () => new GlobalVariableUpdate(Name, Value.Reduce(env)), () =>
             {
-                new Throw(new TypeError($"Global identifier \"{Name}\" does not defined")),
-                env,
-                errorHandling
-            };
-            env.Variables[Name] = (IceKoriBaseType)Value;
-            return new object[] { new DoNothing(), env, errorHandling };
+                if (!env.GlobalVariables.ContainsKey(Name))
+                    return new Throw(new TypeError($"Global identifier \"{Name}\" does not defined"));
+                env.GlobalVariables[Name] = (IceKoriBaseType)Value;
+                return new DoNothing();
+            });
+            return new object[] { statement, env, errorHandling };
         }
     }
 }

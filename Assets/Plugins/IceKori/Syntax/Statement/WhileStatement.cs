@@ -6,7 +6,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
     [System.Serializable]
     public class WhileStatement : BaseStatement
     {
-        public BinaryExpression Condition;
+        public BaseExpression Condition;
         public List<BaseStatement> Body = new List<BaseStatement>();
 
         public WhileStatement()
@@ -14,7 +14,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
             Reducible = true;
         }
 
-        public WhileStatement(BinaryExpression condition, List<BaseStatement> body)
+        public WhileStatement(BaseExpression condition, List<BaseStatement> body)
         {
             Reducible = true;
             Condition = condition;
@@ -33,17 +33,20 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            Body.Add(this);
-            return new object[]
+            var statement = _IsError(Condition, () => new WhileStatement(Condition.Reduce(env), Body), () =>
             {
-                new IfStatement(
+                Body.Add(this);
+                return new IfStatement(
                     Condition,
                     Body,
-                    new List<BaseStatement>{ new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop()) }
-                ),
-                env,
-                errorHandling
-            };
+                    new List<BaseStatement>
+                    {
+                        new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop())
+                    }
+                );
+            });
+
+            return new object[] { statement, env, errorHandling };
         }
     }
 }
