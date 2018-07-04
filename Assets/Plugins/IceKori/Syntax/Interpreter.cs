@@ -31,6 +31,12 @@ namespace Assets.Plugins.IceKori.Syntax
             ErrorHandling = new ErrorHandling();
             Env = new Enviroment(this, commonVariables, commonCommands, globalVariables, globalCommands);
             Statement = new Sequence(commands);
+            _DefaultDefine();
+        }
+
+        private void _DefaultDefine()
+        {
+            Env.Variables.Add("$!", null);
         }
 
         private void _Reduce()
