@@ -1,4 +1,5 @@
-﻿using Assets.Plugins.IceKori.Syntax;
+﻿using System;
+using Assets.Plugins.IceKori.Syntax;
 using UnityEngine;
 
 namespace Assets.Plugins.IceKori
@@ -7,7 +8,7 @@ namespace Assets.Plugins.IceKori
     {
 
         public static GlobalConf Conf;
-
+        public static Action<GlobalConf> DefineGlobal;
         public static void LoadGlobalConf()
         {
             var db = Resources.Load<GlobalConf>("GlobalConf");
@@ -15,15 +16,15 @@ namespace Assets.Plugins.IceKori
             Conf = db;
         }
 
-        public static void DefineGlobal()
+        private static void _DefineGlobal()
         {
-
+            DefineGlobal(Conf);
         }
 
         public static void Init()
         {
             LoadGlobalConf();
-            DefineGlobal();
+            _DefineGlobal();
         }
     }
 }
