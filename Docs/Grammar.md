@@ -40,10 +40,10 @@
 <Error> -> (#Message[string])
 ```
 
-## Expresion
+## Expression
 
 ```
-<Expresion> ¡ú <BinaryExpression> 
+<Expression> ¡ú <BinaryExpression> 
     | <VariableGet> 
     | <GlobalVariableGet>
     | <token>
@@ -92,16 +92,16 @@
     | <DoNothing>
 
 <IfStatement> ¡ú (<condition> <consequence> <alternative>*)
-<condition> ¡ú <Expresion>
-<consequence> ¡ú <Expresion>*
-<alternative> ¡ú <Expresion>*
+<condition> ¡ú <Expression>
+<consequence> ¡ú <Expression>*
+<alternative> ¡ú <Expression>*
 
 <ForStatement> ¡ú (#Count[int] <body>)
 <body> ¡ú <Statement>*
 
 <WhileStatement> ¡ú (<condition> <body>)
 
-<value> ¡ú <Expresion>
+<value> ¡ú <Expression>
 
 <Define> ¡ú (#Name[string] <value>)
 
