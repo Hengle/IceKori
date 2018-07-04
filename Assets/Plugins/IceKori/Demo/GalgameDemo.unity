@@ -1445,6 +1445,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: false
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Name
       Entry: 1
       Data: "\u65E0\u58F0\u94C3\u9E7F"
@@ -1481,6 +1484,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: false
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Background
       Entry: 10
       Data: 1
@@ -1493,6 +1499,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: false
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Name
       Entry: 1
       Data: "\u8349\u4E0A\u98DE"
@@ -1532,6 +1541,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: false
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Name
       Entry: 1
       Data: "\u65E0\u58F0\u94C3\u9E7F"

@@ -365,6 +365,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Name
       Entry: 1
       Data: b
@@ -389,6 +392,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Body
       Entry: 7
       Data: 7|Assets.Plugins.IceKori.Syntax.Expression.BinaryExpression, Assembly-CSharp-firstpass
@@ -458,6 +464,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Body
       Entry: 7
       Data: 13|Assets.Plugins.IceKori.Syntax.Expression.VariableGet, Assembly-CSharp-firstpass
@@ -501,6 +510,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Name
       Entry: 1
       Data: 42
@@ -525,6 +537,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Body
       Entry: 7
       Data: 18|System.Collections.Generic.List`1[[Assets.Plugins.IceKori.Syntax.Statement.BaseStatement,
@@ -538,6 +553,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Name
       Entry: 1
       Data: "\u8F93\u51FA\u771F\u7406"
@@ -566,6 +584,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Body
       Entry: 7
       Data: 22|Assets.Plugins.IceKori.Syntax.Expression.VariableGet, Assembly-CSharp-firstpass
@@ -596,9 +617,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: false
-    - Name: IsFinsh
-      Entry: 5
-      Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Object
       Entry: 10
       Data: 0
@@ -623,6 +644,9 @@ MonoBehaviour:
     - Name: Reducible
       Entry: 5
       Data: true
+    - Name: Level
+      Entry: 3
+      Data: 0
     - Name: Object
       Entry: 7
       Data: 26|Assets.Plugins.IceKori.Syntax.BaseType.Object.IceKoriSprite, Assembly-CSharp-firstpass
@@ -645,6 +669,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   IsRun: 0
+  IsDebug: 0
 --- !u!4 &1020370375
 Transform:
   m_ObjectHideFlags: 0
