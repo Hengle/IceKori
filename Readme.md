@@ -1,9 +1,15 @@
 # IceKori
-A simple Unity-Inspector friendly visual programming language on Unity.
+A simple Unity-Inspector friendly visual programming language on Unity. 
 
-![ice](./ice.png)
+*Warrning: IceKori depends on [Odin Inspector](http://sirenix.net/odininspector) plugin.*
 
 ## Demo
++ Base
 
+![ice](./DocRes/baseDemo.png)
 + Galgame
-![Galgame](./galgameDemo.png)
+
+![Galgame](./DocRes/galgameDemo.png)
+
+## LICENSE
+[MIT](./LICENSE)
