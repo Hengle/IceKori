@@ -50,7 +50,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            
+            if (First.GetType() == typeof(Break)) return new object[] {new DoNothing(), env, errorHandling};
             if (First.GetType() == typeof(DoNothing))
             {
                 if (Last.Count == 0) return new object[] {new DoNothing(), env, errorHandling};
