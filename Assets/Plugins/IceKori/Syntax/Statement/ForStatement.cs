@@ -38,7 +38,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            var statement = _IsError(Count,() => new ForStatement(Count.Reduce(env), Body), () =>
+            var statement = _Pretreatment(Count,() => new ForStatement(Count.Reduce(env), Body), () =>
             {
                 if (Index == 0) env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
                 Index += 1;
@@ -49,7 +49,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
                 {
                     new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop())
                 });
-            });
+            }, () => env.VariablesStack.Pop());
             return new object[] { statement, env, errorHandling };
         }
     }

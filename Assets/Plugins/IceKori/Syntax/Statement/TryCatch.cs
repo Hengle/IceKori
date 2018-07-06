@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Plugins.IceKori.Syntax.BaseType;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
@@ -48,6 +49,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
+            env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
             var callback = new EvalCallback((enviroment, handling) => handling.Pop());
             Body.Add(callback);
             Rescue.Add(callback);

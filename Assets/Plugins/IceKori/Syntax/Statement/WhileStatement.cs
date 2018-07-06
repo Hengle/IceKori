@@ -40,7 +40,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
                 env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
                 _isFirst = false;
             }
-            var statement = IsError(Condition, () => new WhileStatement(Condition.Reduce(env), Body), () =>
+            var statement = _Pretreatment(Condition, () => new WhileStatement(Condition.Reduce(env), Body), () =>
             {
                 Body.Add(this);
                 return new IfStatement(
@@ -51,7 +51,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
                         new EvalCallback((enviroment, handling) => enviroment.VariablesStack.Pop())
                     }
                 );
-            });
+            }, () => env.VariablesStack.Pop());
 
             return new object[] { statement, env, errorHandling };
         }

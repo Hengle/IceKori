@@ -43,7 +43,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            var statement = _IsError(Condition, () => new IfStatement(Condition.Reduce(env), Consequence, Alternative), () =>
+            var statement = _Pretreatment(Condition, () => new IfStatement(Condition.Reduce(env), Consequence, Alternative), () =>
             {
                 if (Condition.GetType() == typeof(IceKoriBool))
                 {
@@ -57,7 +57,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
                     return new Sequence(context);
                 }
                 return new Throw(new TypeError($"Condition \"{Condition}\" not boolean"));
-            });
+            }, () => env.VariablesStack.Pop());
             return new object[]{ statement, env, errorHandling};
         }
     }

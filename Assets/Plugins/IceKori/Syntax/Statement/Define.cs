@@ -29,7 +29,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            var statement = _IsError(Value, () => new Define(Name, Value.Reduce(env)), () =>
+            var statement = _Pretreatment(Value, () => new Define(Name, Value.Reduce(env)), () =>
             {
                 if (env.Variables.ContainsKey(Name))
                     return new Throw(new TypeError($"Identifier \"{Name}\" has already been declared"));

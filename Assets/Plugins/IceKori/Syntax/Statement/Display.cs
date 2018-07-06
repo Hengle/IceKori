@@ -26,7 +26,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            var statement = _IsError(Body, () => new Display(Body.Reduce(env)), () =>
+            var statement = _Pretreatment(Body, () => new Display(Body.Reduce(env)), () =>
             {
                 Debug.Log(Body);
                 return new DoNothing();
