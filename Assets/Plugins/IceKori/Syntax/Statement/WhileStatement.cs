@@ -1,11 +1,13 @@
 ﻿using Assets.Plugins.IceKori.Syntax.Expression;
 using System.Collections.Generic;
+using Assets.Plugins.IceKori.Syntax.BaseType;
 
 namespace Assets.Plugins.IceKori.Syntax.Statement
 {
     [System.Serializable]
     public class WhileStatement : BaseStatement
     {
+        private bool _isFirst = true;
         public BaseExpression Condition;
         public List<BaseStatement> Body = new List<BaseStatement>();
 
@@ -33,7 +35,12 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
         {
-            var statement = _IsError(Condition, () => new WhileStatement(Condition.Reduce(env), Body), () =>
+            if (_isFirst)
+            {
+                env.VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
+                _isFirst = false;
+            }
+            var statement = IsError(Condition, () => new WhileStatement(Condition.Reduce(env), Body), () =>
             {
                 Body.Add(this);
                 return new IfStatement(

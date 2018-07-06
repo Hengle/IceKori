@@ -31,10 +31,10 @@ namespace Assets.Plugins.IceKori.Syntax
             Commands = commonCommands;
             VariablesStack = new Stack<Dictionary<string, IceKoriBaseType>>();
             VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
-            VariableReduce(commonVariables);
+            _VariableReduce(commonVariables);
         }
 
-        public void VariableReduce(Dictionary<string, BaseExpression> variables)
+        private void _VariableReduce(Dictionary<string, BaseExpression> variables)
         {
             foreach (var keyValuePair in variables)
             {
