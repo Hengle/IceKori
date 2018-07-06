@@ -21,8 +21,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
                 return new Throw((BaseError)reduceValue);
             }
 
-            if (reduceValue.Reducible) return isReducible();
-            return reduce();
+            return reduceValue.Reducible ? isReducible() : reduce();
         }
     }
 }
