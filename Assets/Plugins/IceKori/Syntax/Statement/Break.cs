@@ -12,7 +12,7 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override string ToString()
         {
-            return $"break";
+            return "break";
         }
 
         public override object[] Reduce(Enviroment env, ErrorHandling errorHandling)
