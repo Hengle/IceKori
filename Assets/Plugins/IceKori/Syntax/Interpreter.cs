@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Plugins.IceKori.Syntax.BaseType;
+using Assets.Plugins.IceKori.Syntax.BaseType.Object;
 using Assets.Plugins.IceKori.Syntax.EventCommand;
 using Assets.Plugins.IceKori.Syntax.Expression;
 using UnityEngine;
@@ -68,10 +70,49 @@ namespace Assets.Plugins.IceKori.Syntax
                     _Reduce();
                     break;
                 case InterpreterState.Stop:
+                    _WaiteTime();
+                    _WaiteFrame();
+                    break;
                 case InterpreterState.End:
                     return;
             }
 
+        }
+
+        private void _WaiteTime()
+        {
+            if (Env.GetTopVariables().ContainsKey("$TIMER"))
+            {
+                var timer = ((IceKoriDataTime)Env.GetTopVariables()["$TIMER"]).Value;
+                var date = ((IceKoriInt)Env.GetTopVariables()["$DATE"]).Value;
+                if ((DateTime.Now - timer).Ticks >= date * 10000000)
+                {
+                    Env.GetTopVariables().Remove("$TIMER");
+                    Env.GetTopVariables().Remove("$DATE");
+                    State = InterpreterState.Runnig;
+                    _Reduce();
+                }
+            }
+        }
+
+        private void _WaiteFrame()
+        {
+            if (Env.GetTopVariables().ContainsKey("$WAIT_FRAME"))
+            {
+                var frame = ((IceKoriInt)Env.GetTopVariables()["$WAIT_FRAME"]).Value;
+                var index = ((IceKoriInt)Env.GetTopVariables()["$WAIT_FRAME_INDEX"]).Value;
+                if (index > frame)
+                {
+                    Env.GetTopVariables().Remove("$WAIT_FRAME_INDEX");
+                    Env.GetTopVariables().Remove("$WAIT_FRAME");
+                    State = InterpreterState.Runnig;
+                    _Reduce();
+                }
+                else
+                {
+                    ((IceKoriInt) Env.GetTopVariables()["$WAIT_FRAME_INDEX"]).Value += 1;
+                }
+            }
         }
 
         public void Run()
