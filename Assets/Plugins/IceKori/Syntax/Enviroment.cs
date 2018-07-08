@@ -19,6 +19,8 @@ namespace Assets.Plugins.IceKori.Syntax
 
         public Dictionary<string, IceKoriBaseType> Variables => VariablesStack.Peek();
 
+        private Dictionary<string, IceKoriBaseType> _topVariables;
+
         public Enviroment(Interpreter interpreter,
             Dictionary<string, BaseExpression> commonVariables,
             Dictionary<string, List<BaseStatement>> commonCommands,
@@ -30,7 +32,8 @@ namespace Assets.Plugins.IceKori.Syntax
             GlobalVariables = globalVariables;
             Commands = commonCommands;
             VariablesStack = new Stack<Dictionary<string, IceKoriBaseType>>();
-            VariablesStack.Push(new Dictionary<string, IceKoriBaseType>());
+            _topVariables = new Dictionary<string, IceKoriBaseType>();
+            VariablesStack.Push(_topVariables);
             _VariableReduce(commonVariables);
         }
 
@@ -59,6 +62,11 @@ namespace Assets.Plugins.IceKori.Syntax
                 }
  
             }
+        }
+
+        public Dictionary<string, IceKoriBaseType> GetTopVariables()
+        {
+            return _topVariables;
         }
 
         public BaseExpression FindVariable(string name)
