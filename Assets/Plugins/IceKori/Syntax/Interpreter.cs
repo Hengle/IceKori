@@ -39,7 +39,7 @@ namespace Assets.Plugins.IceKori.Syntax
 
         private void _DefaultDefine()
         {
-            Env.Variables.Add("$!", new IceKoriNull());
+            Env.Variables.Add("$!", IceKoriNull.GetNull);
         }
 
         private void _Reduce()

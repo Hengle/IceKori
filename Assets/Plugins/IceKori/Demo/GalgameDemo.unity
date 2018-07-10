@@ -1438,7 +1438,7 @@ MonoBehaviour:
         Assembly-CSharp-firstpass]], mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 3|Assets.Plugins.IceKori.Demo.Script.ShowMessageCommand, Assembly-CSharp-firstpass
@@ -1495,7 +1495,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|Assets.Plugins.IceKori.Demo.Script.ShowMessageCommand, Assembly-CSharp-firstpass
+      Data: 6|Assets.Plugins.IceKori.Syntax.EventCommand.WaitTime, Assembly-CSharp-firstpass
+    - Name: Reducible
+      Entry: 5
+      Data: false
+    - Name: Level
+      Entry: 3
+      Data: 0
+    - Name: Sec
+      Entry: 3
+      Data: 30
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|Assets.Plugins.IceKori.Demo.Script.ShowMessageCommand, Assembly-CSharp-firstpass
     - Name: Reducible
       Entry: 5
       Data: false
@@ -1507,7 +1522,7 @@ MonoBehaviour:
       Data: "\u8349\u4E0A\u98DE"
     - Name: Messages
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 8|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 2
@@ -1537,7 +1552,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 8|Assets.Plugins.IceKori.Demo.Script.ShowMessageCommand, Assembly-CSharp-firstpass
+      Data: 9|Assets.Plugins.IceKori.Demo.Script.ShowMessageCommand, Assembly-CSharp-firstpass
     - Name: Reducible
       Entry: 5
       Data: false
@@ -1549,7 +1564,7 @@ MonoBehaviour:
       Data: "\u65E0\u58F0\u94C3\u9E7F"
     - Name: Messages
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 10|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
