@@ -19,7 +19,7 @@ namespace Assets.Plugins.IceKori.Syntax
 
     public class Interpreter
     {
-        public InterpreterState State = InterpreterState.Pending;
+        public InterpreterState State;
         public bool IsDebug;
         public BaseStatement Statement;
         public Enviroment Env;
@@ -34,11 +34,12 @@ namespace Assets.Plugins.IceKori.Syntax
             Env = new Enviroment(this, commonVariables, commonCommands, globalVariables, globalCommands);
             Statement = new Sequence(commands);
             _DefaultDefine();
+            State = InterpreterState.Pending;
         }
 
         private void _DefaultDefine()
         {
-            Env.Variables.Add("$!", null);
+            Env.Variables.Add("$!", new IceKoriNull());
         }
 
         private void _Reduce()
