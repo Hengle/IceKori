@@ -8,11 +8,13 @@ namespace Assets.Plugins.IceKori.Syntax.BaseType
         public string Value;
         public IceKoriString()
         {
+            ID = 4;
             Reducible = false;
         }
 
         public IceKoriString(string value)
         {
+            ID = 4;
             Reducible = false;
             Value = value;
         }

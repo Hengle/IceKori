@@ -45,9 +45,9 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
         {
             var statement = _Pretreatment(Condition, () => new IfStatement(Condition.Reduce(env), Consequence, Alternative), () =>
             {
-                if (Condition.GetType() == typeof(IceKoriBool) || Condition.GetType() == typeof(IceKoriNull))
+                if (Condition.ID == IceKoriBaseType.Bool || Condition.ID == IceKoriBaseType.Null)
                 {
-                    var condition = Condition.GetType() != typeof(IceKoriNull) && ((IceKoriBool) Condition).Value;
+                    var condition = Condition.ID != IceKoriBaseType.Null && ((IceKoriBool) Condition).Value;
                     var context = condition ? Consequence : Alternative;
                     if (context.Count == 0)
                     {

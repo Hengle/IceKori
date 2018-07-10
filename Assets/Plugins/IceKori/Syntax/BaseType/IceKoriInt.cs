@@ -8,11 +8,13 @@ namespace Assets.Plugins.IceKori.Syntax.BaseType
         public int Value;
         public IceKoriInt()
         {
+            ID = 2;
             Reducible = false;
         }
 
         public IceKoriInt(int value)
         {
+            ID = 2;
             Reducible = false;
             Value = value;
         }

@@ -10,8 +10,15 @@ namespace Assets.Plugins.IceKori.Syntax.Error
 {
      public abstract class BaseError : IceKoriBaseType
      {
+         public static int Error = 6;
+
          public string Name;
          public string Msg;
+
+         protected BaseError()
+         {
+             ID = 6;
+         }
 
          public override BaseExpression Reduce(Enviroment env)
          {

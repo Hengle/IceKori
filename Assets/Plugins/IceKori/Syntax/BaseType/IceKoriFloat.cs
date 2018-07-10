@@ -8,11 +8,13 @@ namespace Assets.Plugins.IceKori.Syntax.BaseType
         public float Value;
         public IceKoriFloat()
         {
+            ID = 3;
             Reducible = false;
         }
 
         public IceKoriFloat(float value)
         {
+            ID = 3;
             Reducible = false;
             Value = value;
         }

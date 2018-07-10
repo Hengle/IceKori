@@ -204,7 +204,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
             {
                 if (Right is IceKoriInt)
                 {
-                    return new IceKoriBool(((IceKoriInt)Left).Value < ((IceKoriInt)Right).Value);
+                    return ((IceKoriInt)Left).Value < ((IceKoriInt)Right).Value ? IceKoriBool.GetTrue : IceKoriBool.GetFalse;
                 }
                 return new IceKoriBool(((IceKoriInt)Left).Value < ((IceKoriFloat)Right).Value);
             }
@@ -340,18 +340,17 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
 
         public override BaseExpression Reduce(Enviroment env)
         {
-            if (Left.GetType().IsSubclassOf(typeof(BaseError)))
+            if (Left.ID == BaseError.Error)
             {
                 return Left;
             }
-            if (Left.GetType().IsSubclassOf(typeof(BaseError)))
+            if (Right.ID == BaseError.Error)
             {
-                return Left;
+                return Right;
             }
             if (Left.Reducible) return new BinaryExpression(Operator, Left.Reduce(env), Right);
             if (Right.Reducible) return new BinaryExpression(Operator, Left, Right.Reduce(env));
-            if (Left.GetType().IsSubclassOf(typeof(IceKoriObject)) ||
-                Right.GetType().IsSubclassOf(typeof(IceKoriObject)))
+            if (Left.ID == IceKoriBaseType.Object || Right.ID == IceKoriBaseType.Object)
             {
                 return new TypeError();
             }
