@@ -1,4 +1,5 @@
-﻿using Assets.Plugins.IceKori.Syntax.BaseType;
+﻿using System;
+using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Error;
 
 namespace Assets.Plugins.IceKori.Syntax.Expression
@@ -25,6 +26,8 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
     [System.Serializable]
     public class BinaryExpression : BaseExpression
     {
+        public static float TOLERANCE = 0.0000001f;
+
         public BinaryOperator Operator;
         public BaseExpression Left;
         public BaseExpression Right;
@@ -92,15 +95,15 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
             }
             if (Left is IceKoriFloat && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value + ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value + ((IceKoriFloat)Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriInt)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value + ((IceKoriInt)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value + ((IceKoriInt) Right).Value);
             }
             if (Left is IceKoriInt && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriInt)Left).Value + ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriInt) Left).Value + ((IceKoriFloat)Right).Value);
             }
             return new TypeError();
         }
@@ -109,19 +112,19 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriInt && Right is IceKoriInt)
             {
-                return new IceKoriInt(((IceKoriInt)Left).Value - ((IceKoriInt)Left).Value);
+                return new IceKoriInt(((IceKoriInt) Left).Value - ((IceKoriInt) Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value - ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value - ((IceKoriFloat)Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriInt)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value - ((IceKoriInt)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value - ((IceKoriInt) Right).Value);
             }
             if (Left is IceKoriInt && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriInt)Left).Value - ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriInt) Left).Value - ((IceKoriFloat) Right).Value);
             }
             return new TypeError();
         }
@@ -130,19 +133,19 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriInt && Right is IceKoriInt)
             {
-                return new IceKoriInt(((IceKoriInt)Left).Value * ((IceKoriInt)Left).Value);
+                return new IceKoriInt(((IceKoriInt) Left).Value * ((IceKoriInt) Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value * ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value * ((IceKoriFloat) Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriInt)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value * ((IceKoriInt)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value * ((IceKoriInt) Right).Value);
             }
             if (Left is IceKoriInt && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriInt)Left).Value * ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriInt) Left).Value * ((IceKoriFloat) Right).Value);
             }
             return new TypeError();
         }
@@ -151,19 +154,19 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriInt && Right is IceKoriInt)
             {
-                return new IceKoriInt(((IceKoriInt)Left).Value / ((IceKoriInt)Left).Value);
+                return new IceKoriInt(((IceKoriInt) Left).Value / ((IceKoriInt) Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value / ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value / ((IceKoriFloat) Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriInt)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value / ((IceKoriInt)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value / ((IceKoriInt) Right).Value);
             }
             if (Left is IceKoriInt && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriInt)Left).Value / ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriInt) Left).Value / ((IceKoriFloat) Right).Value);
             }
             return new TypeError();
         }
@@ -172,19 +175,19 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriInt && Right is IceKoriInt)
             {
-                return new IceKoriInt(((IceKoriInt)Left).Value % ((IceKoriInt)Left).Value);
+                return new IceKoriInt(((IceKoriInt) Left).Value % ((IceKoriInt)Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value % ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value % ((IceKoriFloat) Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriInt)
             {
-                return new IceKoriFloat(((IceKoriFloat)Left).Value % ((IceKoriInt)Left).Value);
+                return new IceKoriFloat(((IceKoriFloat) Left).Value % ((IceKoriInt)Right).Value);
             }
             if (Left is IceKoriInt && Right is IceKoriFloat)
             {
-                return new IceKoriFloat(((IceKoriInt)Left).Value % ((IceKoriFloat)Left).Value);
+                return new IceKoriFloat(((IceKoriInt) Left).Value % ((IceKoriFloat)Right).Value);
             }
             return new TypeError();
         }
@@ -204,15 +207,17 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
             {
                 if (Right is IceKoriInt)
                 {
-                    return ((IceKoriInt)Left).Value < ((IceKoriInt)Right).Value ? IceKoriBool.GetTrue : IceKoriBool.GetFalse;
+                    return ((IceKoriInt) Left).Value < ((IceKoriInt) Right).Value
+                        ? IceKoriBool.GetTrue
+                        : IceKoriBool.GetFalse;
                 }
-                return new IceKoriBool(((IceKoriInt)Left).Value < ((IceKoriFloat)Right).Value);
+                return new IceKoriBool(((IceKoriInt) Left).Value < ((IceKoriFloat) Right).Value);
             }
             if (Right is IceKoriInt)
             {
-                return new IceKoriBool(((IceKoriFloat)Left).Value < ((IceKoriInt)Right).Value);
+                return new IceKoriBool(((IceKoriFloat) Left).Value < ((IceKoriInt) Right).Value);
             }
-            return new IceKoriBool(((IceKoriFloat)Left).Value < ((IceKoriFloat)Right).Value);
+            return new IceKoriBool(((IceKoriFloat) Left).Value < ((IceKoriFloat) Right).Value);
 
         }
 
@@ -249,13 +254,13 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
                 {
                     return new IceKoriBool(((IceKoriInt)Left).Value == ((IceKoriInt)Right).Value);
                 }
-                return new IceKoriBool(((IceKoriInt)Left).Value == ((IceKoriFloat)Right).Value);
+                return new IceKoriBool(Math.Abs(((IceKoriInt)Left).Value - ((IceKoriFloat)Right).Value) < TOLERANCE);
             }
             if (Right is IceKoriInt)
             {
-                return new IceKoriBool(((IceKoriFloat)Left).Value == ((IceKoriInt)Right).Value);
+                return new IceKoriBool(Math.Abs(((IceKoriFloat)Left).Value - ((IceKoriInt)Right).Value) < TOLERANCE);
             }
-            return new IceKoriBool(((IceKoriFloat)Left).Value == ((IceKoriFloat)Right).Value);
+            return new IceKoriBool(Math.Abs(((IceKoriFloat)Left).Value - ((IceKoriFloat)Right).Value) < TOLERANCE);
         }
 
         private BaseExpression _MoreEqual()
@@ -310,21 +315,22 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
             {
                 if (Right is IceKoriInt)
                 {
-                    return new IceKoriBool(((IceKoriInt)Left).Value != ((IceKoriInt)Right).Value);
+                    return new IceKoriBool(((IceKoriInt) Left).Value != ((IceKoriInt) Right).Value);
+
                 }
-                return new IceKoriBool(((IceKoriInt)Left).Value != ((IceKoriFloat)Right).Value);
+                return new IceKoriBool(Math.Abs(((IceKoriInt)Left).Value - ((IceKoriFloat)Right).Value) > TOLERANCE);
             }
             if (Right is IceKoriInt)
             {
-                return new IceKoriBool(((IceKoriFloat)Left).Value != ((IceKoriInt)Right).Value);
+                return new IceKoriBool(Math.Abs(((IceKoriFloat)Left).Value - ((IceKoriInt)Right).Value) > TOLERANCE);
             }
-            return new IceKoriBool(((IceKoriFloat)Left).Value != ((IceKoriFloat)Right).Value);
+            return new IceKoriBool(Math.Abs(((IceKoriFloat)Left).Value - ((IceKoriFloat)Right).Value) > TOLERANCE);
         }
 
         private BaseExpression _And()
         {
             if (Left is IceKoriBool && Right is IceKoriBool) {
-                return new IceKoriBool(((IceKoriBool)Left).Value && ((IceKoriBool)Left).Value);
+                return new IceKoriBool(((IceKoriBool) Left).Value && ((IceKoriBool) Left).Value);
             }
              return new TypeError();       
         }
@@ -333,7 +339,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriBool && Right is IceKoriBool)
             {
-                return new IceKoriBool(((IceKoriBool)Left).Value || ((IceKoriBool)Left).Value);
+                return new IceKoriBool(((IceKoriBool) Left).Value || ((IceKoriBool) Left).Value);
             }
             return new TypeError();
         }
