@@ -2,8 +2,10 @@
 
 namespace Assets.Plugins.IceKori.Syntax.BaseType.Object
 {
+    [System.Serializable]
     public class IceKoriGameObject : IceKoriObject
     {
+
         public GameObject Value;
 
         public IceKoriGameObject()

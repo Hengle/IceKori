@@ -2,6 +2,7 @@
 
 namespace Assets.Plugins.IceKori.Syntax.BaseType.Object
 {
+    [System.Serializable]
     public class IceKoriSprite : IceKoriObject
     {
         public Sprite Value;
