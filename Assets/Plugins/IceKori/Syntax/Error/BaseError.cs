@@ -27,7 +27,7 @@ namespace Assets.Plugins.IceKori.Syntax.Error
 
          public override string ToString()
          {
-             return $"{Name}: {Msg}";
+             return $"<{Name}: {Msg}>";
         }
 
          public override object Unbox()
