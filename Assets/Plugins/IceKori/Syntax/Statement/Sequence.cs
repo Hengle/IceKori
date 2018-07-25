@@ -39,9 +39,11 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
 
         public override string ToString()
         {
-            var str = $"{First}\n";
+            var str = "";
+            if (First.GetType() != typeof(EvalCallback)) str += $"{First}\n";
             foreach (var baseStatement in Last)
             {
+                if (baseStatement.GetType() == typeof(EvalCallback)) continue;
                 str += $"{baseStatement}\n";
             }
 

@@ -16,6 +16,24 @@ namespace Assets.Plugins.IceKori
             Conf = db;
         }
 
+        public static string PrettifyPrint(string codes)
+        {
+            var prettifyCode = "";
+            string[] strs = codes.Split('\n');
+            int level = 0;
+            for (var i = 0; i < strs.Length; i++)
+            {
+                var code = strs[i];
+                if (code.Trim() == "" || code.Trim() == "DoNothing()") continue;
+                if (code.Contains("}")) level -= 1;
+                prettifyCode += code.PadLeft(level * 2 + code.Length) + "\n";
+                if (code.Contains("{")) level += 1;
+                
+            }
+
+            return prettifyCode;
+        }
+
         private static void _DefineGlobal()
         {
             DefineGlobal(Conf);
