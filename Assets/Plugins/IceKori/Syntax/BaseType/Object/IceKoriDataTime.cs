@@ -1,5 +1,5 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 namespace Assets.Plugins.IceKori.Syntax.BaseType.Object

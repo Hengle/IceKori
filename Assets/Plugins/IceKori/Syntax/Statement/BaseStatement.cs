@@ -11,6 +11,12 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
     {
         [HideInEditorMode]
         public int Level;
+        /// <summary>
+        /// 对语句进行一次求值。
+        /// </summary>
+        /// <param name="env">环境对象</param>
+        /// <param name="errorHandling">错误处理对象</param>
+        /// <returns></returns>
         public abstract object[] Reduce(Enviroment env, ErrorHandling errorHandling);
 
         protected BaseStatement _Pretreatment(BaseExpression reduceValue, Func<BaseStatement> isReducible, Func<BaseStatement> reduce, [CanBeNull] Action isBlock = null)

@@ -12,6 +12,10 @@ namespace Assets.Plugins.IceKori.Syntax.BaseType
         public static int String = 4;
         public static int Object = 5;
 
+        /// <summary>
+        /// 对 IceKori 类型对象拆箱。
+        /// </summary>
+        /// <returns>返回值为其对应的 c# 原始对象</returns>
         public abstract object Unbox();
 
         public override BaseExpression Reduce(Enviroment env)

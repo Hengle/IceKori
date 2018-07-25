@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Assets.Plugins.IceKori.Syntax.BaseType;
+﻿using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.BaseType.Object;
 using Assets.Plugins.IceKori.Syntax.Statement;
-using UnityEngine;
+using System;
 
 namespace Assets.Plugins.IceKori.Syntax.EventCommand
 {

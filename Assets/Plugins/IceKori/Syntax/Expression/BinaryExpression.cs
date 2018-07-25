@@ -1,4 +1,5 @@
-﻿using Assets.Plugins.IceKori.Syntax.BaseType;
+﻿using System;
+using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Error;
 
 namespace Assets.Plugins.IceKori.Syntax.Expression
@@ -27,15 +28,33 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
     {
         private static float TOLERANCE = 0.0000001f;
 
+        /// <summary>
+        /// 表达式的操作符
+        /// </summary>
         public BinaryOperator Operator;
+        /// <summary>
+        /// 表达式左侧子表达式
+        /// </summary>
         public BaseExpression Left;
+        /// <summary>
+        /// 表达式右侧子表达式
+        /// </summary>
         public BaseExpression Right;
 
+        /// <summary>
+        /// 表示一个二元表达式对象。
+        /// </summary>
         public BinaryExpression()
         {
             Reducible = true;
         }
 
+        /// <summary>
+        /// 表示一个二元表达式对象。
+        /// </summary>
+        /// <param name="op">表达式的操作符</param>
+        /// <param name="left">表达式左侧子表达式</param>
+        /// <param name="right">表达式右侧子表达式</param>
         public BinaryExpression(BinaryOperator op, BaseExpression left, BaseExpression right)
         {
             Reducible = true;
@@ -46,10 +65,10 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
 
         public override string ToString()
         {
-            return $"({Left} {GetSymbol()} {Right})";
+            return $"({Left} {_GetSymbol()} {Right})";
         }
 
-        private string GetSymbol()
+        private string _GetSymbol()
         {
             switch (Operator)
             {
@@ -90,7 +109,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriInt && Right is IceKoriInt)
             {
-                return new IceKoriInt(((IceKoriInt)Left).Value + ((IceKoriInt)Left).Value);
+                return new IceKoriInt(((IceKoriInt)Left).Value + ((IceKoriInt)Right).Value);
             }
             if (Left is IceKoriFloat && Right is IceKoriFloat)
             {
@@ -236,21 +255,21 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
             {
                 if (Right is IceKoriInt)
                 {
-                    return ((IceKoriInt)Left).Value != ((IceKoriInt)Right).Value
+                    return ((IceKoriInt)Left).Value <= ((IceKoriInt)Right).Value
                         ? IceKoriBool.GetTrue
                         : IceKoriBool.GetFalse;
                 }
-                return Math.Abs(((IceKoriInt)Left).Value - ((IceKoriFloat)Right).Value) > TOLERANCE
+                return (((IceKoriInt)Left).Value <= ((IceKoriFloat)Right).Value)
                     ? IceKoriBool.GetTrue
                     : IceKoriBool.GetFalse;
             }
             if (Right is IceKoriInt)
             {
-                return ((IceKoriFloat)Left).Value > ((IceKoriInt)Right).Value
+                return ((IceKoriFloat)Left).Value <= ((IceKoriInt)Right).Value
                     ? IceKoriBool.GetTrue
                     : IceKoriBool.GetFalse;
             }
-            return ((IceKoriFloat)Left).Value > ((IceKoriFloat)Right).Value
+            return ((IceKoriFloat)Left).Value <= ((IceKoriFloat)Right).Value
                 ? IceKoriBool.GetTrue
                 : IceKoriBool.GetFalse;
         }
@@ -376,7 +395,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriBool && Right is IceKoriBool)
             {
-                return (((IceKoriBool)Left).Value && ((IceKoriBool)Left).Value)
+                return (((IceKoriBool)Left).Value && ((IceKoriBool)Right).Value)
 					? IceKoriBool.GetTrue
 					: IceKoriBool.GetFalse;
             }
@@ -387,7 +406,7 @@ namespace Assets.Plugins.IceKori.Syntax.Expression
         {
             if (Left is IceKoriBool && Right is IceKoriBool)
             {
-                return (((IceKoriBool)Left).Value || ((IceKoriBool)Left).Value)
+                return (((IceKoriBool)Left).Value || ((IceKoriBool)Right).Value)
                     ? IceKoriBool.GetTrue
 					: IceKoriBool.GetFalse;
             }
