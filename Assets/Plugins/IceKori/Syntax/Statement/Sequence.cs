@@ -27,7 +27,6 @@ namespace Assets.Plugins.IceKori.Syntax.Statement
                 if (statements.Count == 0)
                 {
                     First = new DoNothing();
-
                 }
                 else
                 {

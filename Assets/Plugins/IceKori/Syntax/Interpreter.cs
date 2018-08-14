@@ -98,6 +98,20 @@ namespace Assets.Plugins.IceKori.Syntax
         }
 
         /// <summary>
+        /// 对表达式求值。
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        public IceKoriBaseType ExpressionValue(BaseExpression expression)
+        {
+            while (expression.Reducible)
+            {
+                expression = expression.Reduce(Env);
+            }
+            return (IceKoriBaseType)expression;
+        }
+
+        /// <summary>
         /// 对解释器进行一次求值。
         /// </summary>
         public void Reduce()
