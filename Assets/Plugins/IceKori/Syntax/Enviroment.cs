@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Plugins.IceKori.Syntax.BaseType;
+﻿using Assets.Plugins.IceKori.Syntax.BaseType;
 using Assets.Plugins.IceKori.Syntax.Error;
 using Assets.Plugins.IceKori.Syntax.Expression;
 using Assets.Plugins.IceKori.Syntax.Statement;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Plugins.IceKori.Syntax
 {

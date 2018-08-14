@@ -1,6 +1,4 @@
 ﻿using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.Tizen;
 
 namespace Assets.Plugins.IceKori.Syntax
 {
